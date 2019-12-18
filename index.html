@@ -3,6 +3,9 @@
 <head>
    
     <script src="./bin/graph.js"></script>
+    <script src="./bin/EventListener.js"></script>
+    <script src="./bin/Emiter.js"></script>
+    <script src="./bin/CanvasGraph.js"></script>
     <script src="./bin/IGraphContext.js"></script>
     <script src="./bin/contexts/CanvasGraphContext.js"></script>
     <script src="./bin/shape.js"></script>
@@ -21,16 +24,12 @@
 <body>
    
 
-    <canvas id="graph" width="1000" height="1000" ></canvas>
+    <canvas id="graph" width="1000" height="800" ></canvas>
 
     <script>
         var canvas = document.getElementById("graph");
-        var cxt = canvas.getContext("2d");
-        
 
-        var context = new CanvasGraphContext(cxt);
-        
-        var graph = new Graph(context);
+        var graph = new CanvasGraph(canvas);
 
         var shape1 = new ImageShape("http://demo.qunee.com/editor/data/cisco/ATMSwitch.png");
         var shape2 = new ImageShape("http://demo.qunee.com/editor/data/cisco/ATMSwitch.png");

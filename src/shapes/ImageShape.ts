@@ -6,7 +6,7 @@ class ImageShape extends NodeShape{
     }
 
     render(context:IGraphContext){
-        context.drawImage(this.src,this.x,this.y);
+        context.drawImage(this.src,this.x,this.y,this.width,this.height);
     }
 
 }

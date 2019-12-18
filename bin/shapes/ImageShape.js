@@ -20,7 +20,7 @@ var ImageShape = /** @class */ (function (_super) {
         return _this;
     }
     ImageShape.prototype.render = function (context) {
-        context.drawImage(this.src, this.x, this.y);
+        context.drawImage(this.src, this.x, this.y, this.width, this.height);
     };
     return ImageShape;
 }(NodeShape));

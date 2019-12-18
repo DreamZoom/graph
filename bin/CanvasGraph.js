@@ -12,14 +12,20 @@ var __extends = (this && this.__extends) || (function () {
         d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
     };
 })();
-var Shape = /** @class */ (function (_super) {
-    __extends(Shape, _super);
-    function Shape() {
-        var _this = _super.call(this) || this;
-        _this.selected = false;
+var CanvasGraph = /** @class */ (function (_super) {
+    __extends(CanvasGraph, _super);
+    function CanvasGraph(canvas) {
+        var _this = this;
+        var ctx = canvas.getContext("2d");
+        if (ctx == null) {
+            throw new Error("canvas can not support 2d");
+        }
+        _this = _super.call(this, new CanvasGraphContext(ctx, canvas.width, canvas.height)) || this;
+        _this.canvas = canvas;
+        canvas.addEventListener("mousedown", function (e) {
+            console.log(e);
+        });
         return _this;
     }
-    Shape.prototype.render = function (context) {
-    };
-    return Shape;
-}(Emiter));
+    return CanvasGraph;
+}(Graph));
