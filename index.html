@@ -1,0 +1,47 @@
+<html>
+
+<head>
+   
+    <script src="./bin/graph.js"></script>
+    <script src="./bin/IGraphContext.js"></script>
+    <script src="./bin/contexts/CanvasGraphContext.js"></script>
+    <script src="./bin/shape.js"></script>
+    <script src="./bin/NodeShape.js"></script>
+    <script src="./bin/EdgeShape.js"></script>
+    <script src="./bin/shapes/RectShape.js"></script>
+    <script src="./bin/shapes/ImageShape.js"></script>
+    <script src="./bin/shapes/RectShape.js"></script>
+    <style>
+        #graph{
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+
+<body>
+   
+
+    <canvas id="graph" width="1000" height="1000" ></canvas>
+
+    <script>
+        var canvas = document.getElementById("graph");
+        var cxt = canvas.getContext("2d");
+        
+
+        var context = new CanvasGraphContext(cxt);
+        
+        var graph = new Graph(context);
+
+        var shape1 = new ImageShape("http://demo.qunee.com/editor/data/cisco/ATMSwitch.png");
+        var shape2 = new ImageShape("http://demo.qunee.com/editor/data/cisco/ATMSwitch.png");
+        shape2.x=200;
+        shape2.y=200;
+        var line = new EdgeShape(shape1,shape2);
+        graph.addShape(shape1);
+        graph.addShape(shape2);
+        graph.addShape(line);
+
+    </script>
+</body>
+
+</html>
