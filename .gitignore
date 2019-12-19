@@ -30,5 +30,5 @@ coverage/
 test_data/
 test-results/
 yarn-error.log
-./bin/
-./.vscode/
+bin/
+.vscode/
