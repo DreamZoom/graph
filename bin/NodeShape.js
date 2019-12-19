@@ -15,12 +15,26 @@ var __extends = (this && this.__extends) || (function () {
 var NodeShape = /** @class */ (function (_super) {
     __extends(NodeShape, _super);
     function NodeShape() {
-        var _this = _super.call(this) || this;
-        _this.x = 0;
-        _this.y = 0;
-        _this.width = 100;
-        _this.height = 100;
-        return _this;
+        return _super.call(this) || this;
     }
+    NodeShape.prototype.hit = function (x, y) {
+        if (x >= this.x - this.width / 2 && x <= this.x + this.width / 2 && y >= this.y - this.height / 2 && y <= this.y + this.height / 2) {
+            return true;
+        }
+        return false;
+    };
+    NodeShape.prototype.getAnchorPoints = function () {
+        var points = [];
+        points.push({ x: this.x - this.width / 2, y: this.y - this.height / 2 });
+        points.push({ x: this.x, y: this.y - this.height / 2 });
+        points.push({ x: this.x + this.width / 2, y: this.y - this.height / 2 });
+        points.push({ x: this.x - this.width / 2, y: this.y });
+        points.push({ x: this.x, y: this.y });
+        points.push({ x: this.x + this.width / 2, y: this.y });
+        points.push({ x: this.x - this.width / 2, y: this.y + this.height / 2 });
+        points.push({ x: this.x, y: this.y + this.height / 2 });
+        points.push({ x: this.x + this.width / 2, y: this.y + this.height / 2 });
+        return points;
+    };
     return NodeShape;
 }(Shape));

@@ -17,9 +17,19 @@ var Shape = /** @class */ (function (_super) {
     function Shape() {
         var _this = _super.call(this) || this;
         _this.selected = false;
+        _this.x = 0;
+        _this.y = 0;
+        _this.width = 100;
+        _this.height = 100;
         return _this;
     }
     Shape.prototype.render = function (context) {
+    };
+    Shape.prototype.hit = function (x, y) {
+        return false;
+    };
+    Shape.prototype.getAnchorPoints = function () {
+        return [];
     };
     return Shape;
 }(Emiter));

@@ -1,10 +1,10 @@
 class Graph{
-    shaps:Array<Shape>;
+    shapes:Array<Shape>;
 
     context:IGraphContext;
 
     constructor(context:IGraphContext){
-        this.shaps=[];
+        this.shapes=[];
         this.context =context;
 
 
@@ -16,7 +16,7 @@ class Graph{
     }
 
     addShape(shape:Shape){
-        this.shaps.push(shape);
+        this.shapes.push(shape);
     }
 
     removeShape(shape:Shape){
@@ -24,9 +24,18 @@ class Graph{
     }
 
     render(){
-        
-        this.shaps.map((shape)=>{
+        this.context.clear();
+        this.shapes.map((shape)=>{
             shape.render(this.context);
         });
+    }
+
+    hit(x:number,y:number):Shape|null{
+        for(var i=0;i<this.shapes.length;i++){
+            if(this.shapes[i].hit(x,y)){
+                return this.shapes[i];
+            }
+        }
+        return null;
     }
 }

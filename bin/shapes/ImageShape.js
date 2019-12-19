@@ -17,10 +17,25 @@ var ImageShape = /** @class */ (function (_super) {
     function ImageShape(src) {
         var _this = _super.call(this) || this;
         _this.src = src || "";
+        _this.img = new Image();
+        _this.img.onload = function () {
+            _this.loaded = true;
+        };
+        _this.loaded = false;
+        _this.img.src = src;
         return _this;
     }
     ImageShape.prototype.render = function (context) {
-        context.drawImage(this.src, this.x, this.y, this.width, this.height);
+        // context.drawRect(this.x,this.y,this.width,this.height,null);
+        if (this.loaded) {
+            if (this.selected) {
+                context.setShadow();
+            }
+            context.drawImage(this.img, this.x, this.y, this.width, this.height);
+            if (this.selected) {
+                context.clearShadow();
+            }
+        }
     };
     return ImageShape;
 }(NodeShape));

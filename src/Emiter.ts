@@ -12,6 +12,10 @@ class Emiter{
     }
 
     trigger(name:string,...args:any){
-        this.listeners.map(item=>item.call.apply(this,args));
+        this.listeners.map(item=>{
+            if(item.name==name){
+                item.call.apply(this,args);
+            }   
+        });
     }
 }

@@ -22,10 +22,49 @@ var CanvasGraph = /** @class */ (function (_super) {
         }
         _this = _super.call(this, new CanvasGraphContext(ctx, canvas.width, canvas.height)) || this;
         _this.canvas = canvas;
-        canvas.addEventListener("mousedown", function (e) {
-            console.log(e);
-        });
+        _this.init();
         return _this;
     }
+    CanvasGraph.prototype.init = function () {
+        var _this = this;
+        this.canvas.addEventListener("click", function (e) {
+            var x = e.offsetX - _this.canvas.width / 2;
+            var y = e.offsetY - _this.canvas.height / 2;
+            _this.shapes.map(function (s) { return s.selected = false; });
+            var selected_shape = _this.hit(x, y);
+            if (selected_shape != null) {
+                selected_shape.selected = true;
+            }
+        });
+        var mouse_down = null;
+        var position = null;
+        var selected_shape;
+        this.canvas.addEventListener("mousedown", function (e) {
+            var x = e.offsetX - _this.canvas.width / 2;
+            var y = e.offsetY - _this.canvas.height / 2;
+            _this.shapes.map(function (s) { return s.selected = false; });
+            selected_shape = _this.hit(x, y);
+            if (selected_shape != null) {
+                selected_shape.selected = true;
+                mouse_down = { x: e.offsetX, y: e.offsetY };
+                position = { x: selected_shape.x, y: selected_shape.y };
+            }
+        });
+        this.canvas.addEventListener("mousemove", function (e) {
+            if (mouse_down && position && selected_shape != null) {
+                var offset = {
+                    x: e.offsetX - mouse_down.x,
+                    y: e.offsetY - mouse_down.y
+                };
+                selected_shape.x = position.x + offset.x;
+                selected_shape.y = position.y + offset.y;
+            }
+        });
+        this.canvas.addEventListener("mouseup", function (e) {
+            mouse_down = null;
+            position = null;
+            selected_shape = null;
+        });
+    };
     return CanvasGraph;
 }(Graph));

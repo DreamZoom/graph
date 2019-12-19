@@ -15,7 +15,11 @@ var Emiter = /** @class */ (function () {
         for (var _i = 1; _i < arguments.length; _i++) {
             args[_i - 1] = arguments[_i];
         }
-        this.listeners.map(function (item) { return item.call.apply(_this, args); });
+        this.listeners.map(function (item) {
+            if (item.name == name) {
+                item.call.apply(_this, args);
+            }
+        });
     };
     return Emiter;
 }());
