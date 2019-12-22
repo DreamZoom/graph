@@ -47,6 +47,23 @@ var EdgeShape = /** @class */ (function (_super) {
     EdgeShape.prototype.distance = function (p1, p2) {
         return Math.sqrt(Math.pow(p2.y - p1.y, 2) + Math.pow(p2.x - p1.x, 2));
     };
+    EdgeShape.prototype.getIntersectionPoint = function (p1, p2, p3, p4) {
+        var b1 = (p2.y - p1.y) * p1.x + (p1.x - p2.x) * p1.y;
+        var b2 = (p4.y - p3.y) * p3.x + (p3.x - p4.x) * p3.y;
+        var D = (p2.x - p1.x) * (p4.y - p3.y) - (p4.x - p3.x) * (p2.y - p1.y);
+        var D1 = b2 * (p2.x - p1.x) - b1 * (p4.x - p3.x);
+        var D2 = b2 * (p2.y - p1.y) - b1 * (p4.y - p3.y);
+        return { x: D1 / D, y: D2 / D };
+    };
+    EdgeShape.prototype.getPoints = function (rect1, p1, p2) {
+        var p3 = { x: rect1.x, y: rect1.y };
+        var p4 = { x: rect1.x + rect1.width, y: rect1.y };
+        var p = this.getIntersectionPoint(p1, p2, p3, p4);
+    };
+    EdgeShape.prototype.getArc = function (p1, p2) {
+        var tan = (p2.y - p1.y) / (p2.x - p1.x);
+        return Math.atan(tan);
+    };
     EdgeShape.prototype.render = function (context) {
         var points_1 = this.from.getAnchorPoints();
         var points_2 = this.to.getAnchorPoints();
