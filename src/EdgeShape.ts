@@ -7,34 +7,7 @@ class EdgeShape extends Shape {
         this.to = to;
     }
 
-    getBestPoint(points_1: Array<any>, points_2: Array<any>): Array<any> {
 
-        let map: any = {};
-        for (var i = 0; i < points_1.length; i++) {
-            for (var j = 0; j < points_2.length; j++) {
-                let distance = this.distance(points_1[i], points_2[j]);
-                map[(i + "-" + j)] = { i, j, distance };
-            }
-        }
-
-        let min = "";
-        for (var k in map) {
-            if (min == "") {
-                min = k;
-            }
-            else {
-                if (map[min].distance > map[k].distance) {
-                    min = k;
-                }
-            }
-        }
-
-        if (min != "") {
-            return [points_1[map[min].i], points_2[map[min].j]];
-        }
-
-        return [];
-    }
 
     distance(p1: any, p2: any): number {
         return Math.sqrt(Math.pow(p2.y - p1.y, 2) + Math.pow(p2.x - p1.x, 2));
@@ -52,23 +25,90 @@ class EdgeShape extends Shape {
     }
 
     getPoints(rect1: any, p1: any, p2: any) {
-        let p3:any = {x:rect1.x,y:rect1.y};
-        let p4:any = {x:rect1.x+rect1.width,y:rect1.y};
-        let p = this.getIntersectionPoint(p1,p2,p3,p4);
+        let p3: any = { x: rect1.x, y: rect1.y };
+        let p4: any = { x: rect1.x + rect1.width, y: rect1.y };
+        let p = this.getIntersectionPoint(p1, p2, p3, p4);
     }
 
-    getArc(p1: any, p2: any){
-        let tan=(p2.y-p1.y)/(p2.x-p1.x);
+    getArc(p1: any, p2: any) {
+        let tan = (p2.y - p1.y) / (p2.x - p1.x);
         return Math.atan(tan);
     }
 
-    render(context: IGraphContext) {
-        let points_1 = this.from.getAnchorPoints();
-        let points_2 = this.to.getAnchorPoints();
-        let points = this.getBestPoint(points_1, points_2);
-        if (points.length == 2) {
-            context.drawLine(points[0].x, points[0].y, points[1].x, points[1].y, null);
+    getLineFunction(p1: any, p2: any) {
+        let a = (p2.y - p1.y) / (p2.x - p1.x);
+        let b = p1.y - a * p1.x;
+        return {
+            xfunc: function (x: number) {
+                return a * x + b;
+            },
+            yfunc: function (y: number) {
+                return (y - b) / a;
+            },
+            a: a,
+            b: b
         }
+    }
+
+    K(v: number): number {
+        if (v > 0) return 1;
+        if (v == 0) return 0;
+        return -1;
+    }
+
+    getBestPoints(from: NodeShape, to: NodeShape) {
+
+
+        let kx = this.K(to.x - from.x);
+        let ky = this.K(to.y - from.y);
+
+        let temp1: any = {};
+        let temp2: any = {};
+
+        if (kx == 0) {
+            temp1 = { x: from.x, y: from.y + ky * from.height / 2 };
+            temp2 = { x: to.x, y: to.y - ky * to.height / 2 };
+        }
+        else {
+            let line = this.getLineFunction(this.from, this.to);
+            let line_from = this.getLineFunction(this.from, { x: this.from.x + this.from.width / 2, y: this.from.y + this.from.height / 2 });
+            let line_to = this.getLineFunction(this.to, { x: this.to.x + this.to.width / 2, y: this.to.y + this.to.height / 2 });
+
+            if (Math.abs(line_from.a) >= Math.abs(line.a)) {
+                temp1.x = from.x + kx * from.width / 2;
+                temp1.y = line.xfunc(temp1.x);
+            } else {
+                temp1.y = from.y + ky * from.height / 2;
+                temp1.x = line.yfunc(temp1.y);
+            }
+
+            if (Math.abs(line_to.a) >= Math.abs(line.a)) {
+                temp2.x = this.to.x - kx * this.to.width / 2;
+                temp2.y = line.xfunc(temp2.x);
+            } else {
+                temp2.y = this.to.y - ky * this.to.height / 2;
+                temp2.x = line.yfunc(temp2.y);
+            }
+
+        }
+
+
+        if (temp1.x > Math.max(from.x, to.x) || temp1.x < Math.min(from.x, to.x) || temp1.y > Math.max(from.y, to.y) || temp1.y < Math.min(from.y, to.y)) {
+            temp1 = from;
+        }
+        if (temp2.x > Math.max(from.x, to.x) || temp2.x < Math.min(from.x, to.x) || temp2.y > Math.max(from.y, to.y) || temp2.y < Math.min(from.y, to.y)) {
+            temp2 = to;
+        }
+
+        return [temp1, temp2];
+    }
+
+    render(context: IGraphContext) {
+
+        let points = this.getBestPoints(this.from, this.to);
+
+
+        context.drawLine(points[0].x, points[0].y, points[1].x, points[1].y, null);
 
     }
 }

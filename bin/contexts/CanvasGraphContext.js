@@ -43,5 +43,7 @@ var CanvasGraphContext = /** @class */ (function () {
         this.ctx.shadowOffsetY = 0;
         this.ctx.shadowBlur = 0;
     };
+    CanvasGraphContext.prototype.draw = function (shape) {
+    };
     return CanvasGraphContext;
 }());

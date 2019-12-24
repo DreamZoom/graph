@@ -21,6 +21,7 @@ var Shape = /** @class */ (function (_super) {
         _this.y = 0;
         _this.width = 100;
         _this.height = 100;
+        _this.alpha = 1;
         return _this;
     }
     Shape.prototype.render = function (context) {

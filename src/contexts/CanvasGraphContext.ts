@@ -54,4 +54,8 @@ class CanvasGraphContext implements IGraphContext{
         this.ctx.shadowOffsetY = 0;  
         this.ctx.shadowBlur= 0; 
     }
+
+    draw(shape:Shape){
+        
+    }
 }

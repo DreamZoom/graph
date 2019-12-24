@@ -5,6 +5,7 @@ class Shape extends Emiter{
 
     width:number;
     height:number;
+    alpha:number;
     constructor(){
         super();
         this.selected=false;
@@ -12,6 +13,7 @@ class Shape extends Emiter{
         this.y=0;
         this.width=100;
         this.height=100;
+        this.alpha=1;
     }
     render(context:IGraphContext){
         
