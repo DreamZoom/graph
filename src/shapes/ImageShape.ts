@@ -13,7 +13,7 @@ class ImageShape extends NodeShape{
         this.img.src=src;
     }
 
-    render(context:IGraphContext){
+    doRender(context:IGraphContext){
         // context.drawRect(this.x,this.y,this.width,this.height,null);
         if(this.loaded){
             if(this.selected){

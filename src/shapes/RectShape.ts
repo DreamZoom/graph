@@ -1,6 +1,6 @@
 class RectShape extends NodeShape{
 
-    render(context:IGraphContext){
+    doRender(context:IGraphContext){
         context.drawRect(this.x,this.y,this.width,this.height,null);
     }
 

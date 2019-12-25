@@ -17,7 +17,7 @@ var RectShape = /** @class */ (function (_super) {
     function RectShape() {
         return _super !== null && _super.apply(this, arguments) || this;
     }
-    RectShape.prototype.render = function (context) {
+    RectShape.prototype.doRender = function (context) {
         context.drawRect(this.x, this.y, this.width, this.height, null);
     };
     return RectShape;

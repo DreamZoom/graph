@@ -25,7 +25,7 @@ var ImageShape = /** @class */ (function (_super) {
         _this.img.src = src;
         return _this;
     }
-    ImageShape.prototype.render = function (context) {
+    ImageShape.prototype.doRender = function (context) {
         // context.drawRect(this.x,this.y,this.width,this.height,null);
         if (this.loaded) {
             if (this.selected) {

@@ -14,27 +14,6 @@ class EdgeShape extends Shape {
     }
 
 
-    getIntersectionPoint(p1: any, p2: any, p3: any, p4: any) {
-        let b1 = (p2.y - p1.y) * p1.x + (p1.x - p2.x) * p1.y;
-        let b2 = (p4.y - p3.y) * p3.x + (p3.x - p4.x) * p3.y;
-        let D = (p2.x - p1.x) * (p4.y - p3.y) - (p4.x - p3.x) * (p2.y - p1.y);
-        let D1 = b2 * (p2.x - p1.x) - b1 * (p4.x - p3.x);
-        let D2 = b2 * (p2.y - p1.y) - b1 * (p4.y - p3.y);
-
-        return { x: D1 / D, y: D2 / D };
-    }
-
-    getPoints(rect1: any, p1: any, p2: any) {
-        let p3: any = { x: rect1.x, y: rect1.y };
-        let p4: any = { x: rect1.x + rect1.width, y: rect1.y };
-        let p = this.getIntersectionPoint(p1, p2, p3, p4);
-    }
-
-    getArc(p1: any, p2: any) {
-        let tan = (p2.y - p1.y) / (p2.x - p1.x);
-        return Math.atan(tan);
-    }
-
     getLineFunction(p1: any, p2: any) {
         let a = (p2.y - p1.y) / (p2.x - p1.x);
         let b = p1.y - a * p1.x;
@@ -103,7 +82,7 @@ class EdgeShape extends Shape {
         return [temp1, temp2];
     }
 
-    render(context: IGraphContext) {
+    doRender(context: IGraphContext) {
 
         let points = this.getBestPoints(this.from, this.to);
 

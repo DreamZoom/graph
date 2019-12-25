@@ -22,15 +22,32 @@ var Shape = /** @class */ (function (_super) {
         _this.width = 100;
         _this.height = 100;
         _this.alpha = 1;
+        _this.animations = [];
         return _this;
     }
+    Shape.prototype.beforeRender = function (context) {
+    };
     Shape.prototype.render = function (context) {
+        this.beforeRender(context);
+        this.doRender(context);
+        this.afterRender(context);
+    };
+    Shape.prototype.doRender = function (context) {
+    };
+    Shape.prototype.afterRender = function (context) {
+        var _this = this;
+        this.animations.map(function (a) {
+            a.call(_this, _this);
+        });
     };
     Shape.prototype.hit = function (x, y) {
         return false;
     };
     Shape.prototype.getAnchorPoints = function () {
         return [];
+    };
+    Shape.prototype.animate = function (animateFunc) {
+        this.animations.push(animateFunc);
     };
     return Shape;
 }(Emiter));
