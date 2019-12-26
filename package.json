@@ -1,0 +1,32 @@
+{
+  "name": "graph",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "bin": {
+    "graph": "CanvasGraph.js"
+  },
+  "dependencies": {},
+  "devDependencies": {
+    "browser-sync": "^2.26.7",
+    "browserify": "^16.5.0",
+    "gulp": "^4.0.2",
+    "gulp-typescript": "^6.0.0-alpha.1",
+    "tsify": "^4.0.1",
+    "typescript": "^3.7.4",
+    "vinyl-source-stream": "^2.0.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DreamZoom/graph.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/DreamZoom/graph/issues"
+  },
+  "homepage": "https://github.com/DreamZoom/graph#readme"
+}
